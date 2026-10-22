@@ -1,0 +1,11 @@
+api:
+  listen: 127.0.0.1:19841
+  allow_paths:
+    - /
+    - /api/xiaomi
+rtsp:
+  listen: ""
+webrtc:
+  listen: ""
+log:
+  level: fatal
