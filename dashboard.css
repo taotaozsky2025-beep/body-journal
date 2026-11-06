@@ -17,3 +17,43 @@ body{background-image:radial-gradient(ellipse at 72% 0%,#18345038,transparent 55
 .count-pill{border-radius:4px;border:1px solid #244863}.retention-note{border:1px solid #244259;border-radius:5px}.table-scroll{scrollbar-color:#344b6a #0c1523}table th{background:#152235}h1{font-weight:600;letter-spacing:.6px}.intro p{font-size:12px}.card-icon{opacity:.85}
 .export{color:#eff8ff;font-weight:500}.export:hover{color:#fff}
 .sync-button{background:linear-gradient(110deg,#0878c2,#2455b5);border-color:#278ac9;color:#eff8ff;font-size:12px;font-weight:600}.button:disabled{cursor:wait;opacity:.6}.sync-panel{display:flex;align-items:center;gap:14px;border:1px solid #254361;border-radius:7px;background:linear-gradient(105deg,#10263b,#101a2b);padding:15px 19px;margin:0 0 24px}.sync-indicator{width:9px;height:9px;flex-shrink:0;border-radius:50%;background:#6285a8;box-shadow:0 0 12px #3298df44}.sync-copy{flex:1}.sync-copy strong{font-size:12px;font-weight:600;color:#bce7ff}.sync-copy p{margin:3px 0 0;font-size:11px;color:#8fa8c8}.sync-stages{display:flex;gap:12px;align-items:center;font-size:10px;color:#6d87a8;font-family:Consolas,"Microsoft YaHei",monospace;white-space:nowrap}.stage-arrow{color:#34516f}.sync-stages [data-state=active]{color:#69d9ff}.sync-stages [data-state=done]{color:#8cdaf5}.sync-stages [data-state=failed]{color:#ffbd8c}.sync-stages [data-state=skipped]{color:#7b879c}.sync-panel[data-state=running] .sync-indicator{background:#48cbff;animation:sync-pulse 1.2s infinite}.sync-panel[data-state=complete] .sync-indicator{background:#67d7fc}.sync-panel[data-state=error] .sync-indicator,.sync-panel[data-state=partial] .sync-indicator{background:#ffbb84}.sync-panel[data-state=error],.sync-panel[data-state=partial]{border-color:#785137}@keyframes sync-pulse{50%{opacity:.35;box-shadow:0 0 20px #41bfff99}}@media(prefers-reduced-motion:reduce){.sync-panel[data-state=running] .sync-indicator{animation:none}}@media(max-width:1100px){.sync-panel{flex-wrap:wrap}.sync-stages{margin-left:23px;width:100%}.header-actions{gap:8px}}@media(max-width:720px){header .breadcrumb{display:none}.header-actions{width:100%;justify-content:flex-end}.sync-panel{padding:13px}.sync-copy p{font-size:10px}.sync-stages{font-size:9px;gap:8px}}
+
+/* Themes: chart colors inherit these tokens without rebuilding the plot. */
+.theme-control{display:flex;align-items:center;gap:6px;white-space:nowrap}
+#theme-select{max-width:none}
+@media(max-width:720px){.header-actions{flex-wrap:wrap;gap:6px}header{height:auto;min-height:60px;padding:8px 0}#theme-select,.header-actions .button{padding:6px 8px}}
+:root[data-theme=claude]{--bg:#faf9f5;--paper:#ffffff;--ink:#141413;--muted:#5e5d57;--line:#e8e6dc;--green:#d97757;--soft:#f5f4ed;--plot-grid:#e8e6dc;--plot-text:#5e5d57;--plot-line:#d97757;--plot-error:#9d5945;--plot-guide:#b0aea5;--plot-point-edge:#ffffff;--accent:#141413;--tint:#f0eee6}
+:root[data-theme=jade]{--bg:#eef5f3;--paper:#fcfffe;--ink:#173532;--muted:#46645f;--line:#c8ddd7;--green:#08786c;--soft:#e0f1eb;--plot-grid:#d4e4de;--plot-text:#42655f;--plot-line:#08786c;--plot-error:#35736f;--plot-guide:#67948a;--plot-point-edge:#fcfffe;--accent:#08675d;--tint:#def1e9;--hover:#d4e8e0}
+:root:is([data-theme=claude],[data-theme=jade]){color-scheme:light}
+:root:is([data-theme=claude],[data-theme=jade]) body{background:var(--bg)}
+[data-theme=claude] h1,[data-theme=claude] h2{font-family:Georgia,"Songti SC","SimSun",serif}
+[data-theme=claude] .metric-card,[data-theme=claude] .chart-panel,[data-theme=claude] .history-panel,[data-theme=claude] .details-panel{border-radius:14px}
+:is([data-theme=claude],[data-theme=jade]) :is(.sidebar,.metric-card,.chart-panel,.history-panel,.details-panel,.subtle,select){background:var(--paper);border-color:var(--line);color:var(--ink);box-shadow:none}
+:is([data-theme=claude],[data-theme=jade]) :is(.brand small,.nav-caption,.nav,.side-note,.side-note p,.local-badge,.breadcrumb,.breadcrumb span,.header-actions,.intro p,.metric-foot,.chart-footer,footer,td,td:first-child,#empty,.sync-copy p){color:var(--muted)}
+:is([data-theme=claude],[data-theme=jade]) :is(.nav.active,.brand-mark,.metric-card.selected,.count-pill,.retention-note,.sync-panel,.ranges button.active){background:var(--tint);border-color:var(--line);color:var(--accent);box-shadow:none}
+:is([data-theme=claude],[data-theme=jade]) .nav.active{border-left-color:var(--accent)}
+:is([data-theme=claude],[data-theme=jade]) :is(.metric-value,.metric-card.selected .metric-value,.eyebrow,.leaf,.card-icon,.sync-copy strong,.retention-note small){color:var(--accent);text-shadow:none}
+:is([data-theme=claude],[data-theme=jade]) :is(.export,.sync-button){background:var(--accent);border-color:var(--accent);color:white;box-shadow:none}
+:is([data-theme=claude],[data-theme=jade]) :is(.export,.sync-button):hover{filter:brightness(.9)}
+:is([data-theme=claude],[data-theme=jade]) :is(.subtle:hover,tbody tr:hover,table th,.ranges){background:var(--soft);border-color:var(--line);color:var(--ink)}
+:is([data-theme=claude],[data-theme=jade]) :is(.ranges button,.sync-stages,.sync-stages [data-state=skipped],.stage-arrow){color:var(--muted)}
+:is([data-theme=claude],[data-theme=jade]) :is(.ranges button.active,.sync-stages [data-state=active],.sync-stages [data-state=done]){color:var(--accent)}
+:is([data-theme=claude],[data-theme=jade]) .sync-stages [data-state=failed]{color:#963c23}
+:is([data-theme=claude],[data-theme=jade]) :is(td,dl>div,.side-note){border-color:var(--line)}
+:is([data-theme=claude],[data-theme=jade]) :is(dt,dd small){color:var(--muted)}
+:is([data-theme=claude],[data-theme=jade]) :is(.legend-dot,.local-badge i,.sync-indicator){background:var(--accent);box-shadow:none}
+:is([data-theme=claude],[data-theme=jade]) #tooltip{background:var(--paper);color:var(--ink);border-color:var(--line)}
+:is([data-theme=claude],[data-theme=jade]) #tooltip strong{color:var(--accent)}
+:is([data-theme=claude],[data-theme=jade]) .table-scroll{scrollbar-color:var(--line) var(--paper)}
+:is([data-theme=claude],[data-theme=jade]) :focus-visible{outline-color:var(--accent)}
+
+/* Claude-inspired: neutral surfaces and ink, with clay used sparingly. */
+[data-theme=claude] .sidebar{background:#f5f4ed}
+[data-theme=claude] .brand-mark{background:#faf9f5;color:#d97757}
+[data-theme=claude] .nav.active{border-left-color:#b0aea5}
+[data-theme=claude] .metric-card.selected{background:#faf9f5;border-color:#b0aea5}
+[data-theme=claude] :is(.eyebrow,.leaf,.card-icon,.sync-copy strong,.retention-note small){color:var(--muted)}
+[data-theme=claude] .sync-panel{background:#f5f4ed}
+[data-theme=claude] .sync-button{background:#d97757;border-color:#d97757;color:#141413}
+[data-theme=claude] :is(.legend-dot,.local-badge i,.sync-indicator){background:#d97757}
+[data-theme=claude] .retention-note{background:#f5f4ed}

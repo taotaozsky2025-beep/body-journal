@@ -8,6 +8,20 @@ const METRICS={
  WeightControl_kg:['体重控制量','kg',1],MuscleControl_kg:['肌肉控制量','kg',1],FatControl_kg:['脂肪控制量','kg',1],BodyScore:['身体评分','',0]
 };
 const $=id=>document.getElementById(id);
+const themeSelect=$('theme-select');
+const themes=new Set(['tech','claude','jade']);
+function applyTheme(theme){
+ if(!themes.has(theme))theme='tech';
+ document.documentElement.dataset.theme=theme;
+ themeSelect.value=theme;
+}
+let savedTheme='tech';
+try{savedTheme=localStorage.getItem('body-journal-theme')||'tech';}catch{}
+applyTheme(savedTheme);
+themeSelect.addEventListener('change',()=>{
+ applyTheme(themeSelect.value);
+ try{localStorage.setItem('body-journal-theme',themeSelect.value);}catch{}
+});
 let rows=[],metric='Weight_kg',days=0,grouping='day',busy=false;
 let syncing=false,syncToken='',lastSyncState='idle';
 try{const saved=JSON.parse(localStorage.getItem('body-journal-view')||'{}');if(['day','week','month'].includes(saved.grouping))grouping=saved.grouping;if(METRICS[saved.metric])metric=saved.metric;if([0,7,30,90].includes(saved.days))days=saved.days;}catch{}
@@ -77,10 +91,8 @@ function draw(){
  chart.append(svg('text',{x:left,y:12,fill:'var(--plot-text)','font-size':10},METRICS[metric][1]||'数值'));
  chart.append(svg('text',{x:width-right,y:height-5,fill:'var(--plot-text)','font-size':9,'text-anchor':'end'},grouping==='week'?'周起始日（周一） · 北京时间':grouping==='month'?'日历月 · 北京时间':'日期 · 北京时间'));
  const coordinates=data.map(row=>[x(row.index),y(row.mean)]);
- // Break the line at missing periods instead of implying an unobserved value.
- let segment=[];
- function drawSegment(){if(segment.length>1)chart.append(svg('path',{d:segment.map((p,i)=>(i?'L':'M')+p.join(',')).join(' '),fill:'none',stroke:'var(--plot-line)','stroke-width':2,'stroke-linejoin':'round','stroke-linecap':'round'}));segment=[];}
- data.forEach((row,index)=>{if(index&&row.index!==data[index-1].index+1)drawSegment();segment.push(coordinates[index]);});drawSegment();
+ // Connect observed points without inserting measurements for missing periods.
+ if(coordinates.length>1)chart.append(svg('path',{d:coordinates.map((p,i)=>(i?'L':'M')+p.join(',')).join(' '),fill:'none',stroke:'var(--plot-line)','stroke-width':2,'stroke-linejoin':'round','stroke-linecap':'round'}));
  for(const row of data){
   if(row.sd===null)continue;
   const px=x(row.index),hi=y(row.high),lo=y(row.low);
